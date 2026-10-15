@@ -1,5 +1,7 @@
-package com.social.media;
+package com.social.media.service;
 
+import com.social.media.entity.User;
+import com.social.media.repository.SocialUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +20,11 @@ public class SocialService {
 
     public User saveUser(User user){
         return socialUserRepository.save(user);
+    }
+
+    public void deleteUser(Long userId){
+        User existingUser = socialUserRepository.findById(userId)
+                .orElseThrow(()-> new RuntimeException("User not found"));
+         socialUserRepository.deleteById(userId);
     }
 }
